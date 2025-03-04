@@ -1,0 +1,19 @@
+.form-box {
+    padding: 30px;
+
+    h2 {
+        font-size: 34px;
+        color: #08669f;
+        text-shadow:  3px 3px 3px #2d516a;
+        margin-bottom: 30px;
+        border-bottom: 1px solid  #2d516a;
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    button {
+        margin-right: 20px;
+    }
+}

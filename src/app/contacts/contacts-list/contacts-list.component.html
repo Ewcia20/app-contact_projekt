@@ -1,0 +1,79 @@
+<app-header>
+  <span content>Lista wszystkich kontaktów</span>
+</app-header>
+
+
+<table mat-table [dataSource]="dataSource">
+  
+  
+    <!-- Lp Column -->
+    <ng-container matColumnDef="lp">
+      <th mat-header-cell *matHeaderCellDef> Lp </th>
+      <td mat-cell *matCellDef="let element let i = index"> {{ i + 1 }} </td>
+    </ng-container>
+
+    <!-- surname Column -->
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef> Nazwisko </th>
+      <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+    </ng-container>
+    <!-- firstname Column -->
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> Imię </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+    </ng-container>
+    <!-- city Column -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef> Miasto </th>
+      <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+    </ng-container>
+    
+    <!-- action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Akcja </th>
+      <td mat-cell *matCellDef="let element">
+        <button [routerLink]="['/contact-details', element.id]" mat-mini-fab class="green" matTooltip="podgląd">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button (click)="openAddModComponent(element.id)"mat-mini-fab matTooltip="edycja">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="removeContactComponent(element.id)" mat-mini-fab class="red" matTooltip="usuń" >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <button mat-fab matTooltip="dodaj" (click)="openAddModComponent()">
+    <mat-icon>add</mat-icon>
+  </button>
+  
+  <form  [formGroup]="searchForm">
+    <mat-form-field >
+      
+      <mat-label>Wyszukaj</mat-label>
+      <input formControlName="surname" matInput placeholder="Nazwisko"  >
+    </mat-form-field>
+  
+  
+    <div class="search">
+      
+  
+      <button (click)="searchContacts(surname)" mat-fab extended>
+        <mat-icon>search</mat-icon>
+        Szukaj
+      </button>
+    </div>
+
+    
+  </form>
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,17 @@
+<header>
+    <div class="logo">
+        <img src="assets/img/logo_app_contacts.png" alt="logo aplikacji kontakty" width="70">
+    </div>
+    <div>
+        <p class="text-header">
+            <span class="app-name">Aplikacja kontakty</span> [ <ng-content select="[content]"></ng-content> ]
+        </p>
+    </div>
+    <div class="logout">
+        <!-- <a href="#" (click)="logout()">Wyloguj</a> -->
+        <button  (click)="logout()" mat-fab extended>
+            <mat-icon>logout</mat-icon>  
+         Wyloguj
+        </button>
+    </div>
+</header>

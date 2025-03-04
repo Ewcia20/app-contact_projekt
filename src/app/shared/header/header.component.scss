@@ -1,0 +1,27 @@
+header {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    margin-right: 30px;
+}
+
+.text-header {
+    font-size: 200%;
+}
+
+.app-name {
+    text-transform: uppercase;
+    margin-right: 20px;
+    //color: #16a0c7;
+    color:#08669f;
+    text-shadow: 3px 3px 5pxcolor  #2d516a;
+}
+
+.logout {
+    position: absolute;
+    right: 40px;
+    top: 30px;
+}
+

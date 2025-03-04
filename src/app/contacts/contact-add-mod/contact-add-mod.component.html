@@ -1,0 +1,54 @@
+<div class="form-box">
+    <h2 *ngIf="!dataModal.idContact">Dodaj nowy kontakt</h2>
+    <h2 *ngIf="dataModal.idContact">Modyfikuj kontakt</h2>
+
+    <form [formGroup]="addModForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Nazwisko</mat-label>
+            <input (keyup)="comprateData()" matInput formControlName="surname" maxlength="30">
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Imię</mat-label>
+            <input (keyup)="comprateData()" matInput formControlName="firstname" >
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Nr telefonu</mat-label>
+            <input (keyup)="comprateData()" matInput formControlName="phoneNumber">
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Adres email</mat-label>
+            <input (keyup)="comprateData()" matInput formControlName="email">
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Miasto</mat-label>
+            <input (keyup)="comprateData()" matInput formControlName="city">
+          </mat-form-field>
+
+          <button mat-fab matTooltip="Anuluj" (click)="closeModal()">
+            <mat-icon>cancel</mat-icon>
+          </button>
+
+          <button (click)="addNewContact()" [disabled]="addModForm.invalid" *ngIf="!dataModal.idContact" mat-fab matTooltip="Zapisz nowy konntakt">
+            <mat-icon>save</mat-icon>
+          </button>
+
+          <button (click)="modContact()" [disabled]="addModForm.invalid || comData" *ngIf="dataModal.idContact"  mat-fab matTooltip="Zapisz modyfikację">
+            <mat-icon>save</mat-icon>
+          </button>
+    </form>
+
+    <!-- <pre>
+      {{addModForm.value | json}}
+    </pre>
+    
+    <pre>
+      {{addModForm.invalid | json}}
+    </pre>
+    <pre>
+      {{addModForm.valid | json}}
+    </pre> -->
+</div>

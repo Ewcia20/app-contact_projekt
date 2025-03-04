@@ -1,0 +1,27 @@
+<div class="box-users"> 
+
+    <p  *ngIf="errorLogin" class="alert">Podano błędny login i/lub Hasło</p>
+
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
+        <mat-form-field appearance="outline">
+            <mat-label>Login</mat-label>
+            <input matInput placeholder="Login" name="login" ngModel required pattern="^[A-z0-9_.]{3,30}$">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Hasło</mat-label>
+            <input matInput type="password" placeholder="Hasło" name="pass" ngModel required pattern="^[A-z0-9_!@#$()?]{3,30}$">
+        </mat-form-field>    
+        <button  mat-fab extended type="submit" [disabled]="loginForm.invalid">
+            <mat-icon>lock</mat-icon>  
+            Zaloguj
+        </button>
+        <button (click)="createUserView($event)" mat-fab extended>
+            <mat-icon>person_add</mat-icon>  
+            Dodaj konto
+        </button>
+       
+    </form>
+
+
+</div>
+

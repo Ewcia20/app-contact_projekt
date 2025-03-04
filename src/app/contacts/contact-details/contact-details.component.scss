@@ -1,0 +1,19 @@
+.box {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid gray;
+    border-left: 0;
+    border-right: 0;
+}
+.name {
+    font-weight: 600;
+}
+.flex {
+    display: flex;
+    font-size: 120%;
+    .icons {
+        margin-right: 30px;
+        font-size: 130%;
+        color: rgb(4, 4, 90);
+    }
+}

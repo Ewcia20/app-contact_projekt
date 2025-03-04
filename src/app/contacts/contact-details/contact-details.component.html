@@ -1,0 +1,42 @@
+<app-header>
+    <span content>Szczegóły wybranego kontaktu</span>
+</app-header>
+
+
+<div class="box">
+    
+    <div class="flex name">
+        <div class="icons">
+            <mat-icon>person</mat-icon>
+        </div>
+        <p>{{dataSource.surname}} {{dataSource.firstname}}</p>
+    </div>
+    
+    <div class="flex">
+        <div class="icons">
+            <mat-icon>location_city</mat-icon>
+        </div>
+        <p>{{dataSource.city}}</p>
+    </div>
+    
+    <div class="flex">
+        <div class="icons">
+            <mat-icon>phone</mat-icon>
+        </div>
+        <p>{{dataSource.phoneNumber}}</p>
+    </div>
+    
+    <div class="flex">
+        <div class="icons">
+            <mat-icon>email</mat-icon>
+        </div>
+        <p>{{dataSource.email}}</p>
+    </div>
+</div>
+
+<button [routerLink]="['/contacts']" mat-fab matTooltip="wstecz">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+
+
+  

@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+html, body { height: 90%; }
+body { margin: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.box-users {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        width: 30%;
+        border: 1px solid grey;
+        border-radius: 4px;
+        padding: 40px;
+    }
+    
+    mat-form-field {
+        display: block;
+    } 
+    
+    .alert {
+        font-size: 140%;
+        color: red;    
+    }
+    
+    button {
+        margin-right: 15px;
+    }
+ 
+}
+
+
