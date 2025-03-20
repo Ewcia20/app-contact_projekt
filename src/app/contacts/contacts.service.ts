@@ -23,7 +23,7 @@ export class ContactsService {
     return this.httpClient.delete(`${this.baseApiUrl}/contacts/${id}`);
   }
   
-  searchContactsService(surname: string, value: any): Observable<any> {
+  searchContactsService(surname: string): Observable<any> {
     return this.httpClient.post(`${this.baseApiUrl}/contacts/search`, {surname});
   }
   

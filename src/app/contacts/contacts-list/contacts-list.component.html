@@ -1,8 +1,22 @@
 <app-header>
   <span content>Lista wszystkich kontaktów</span>
 </app-header>
+<form  [formGroup]="searchForm">
+  <mat-form-field >
+    
+    <mat-label>Wyszukaj</mat-label>
+    <input formControlName="surname" matInput placeholder="Nazwisko"  >
+  </mat-form-field>
 
+  <div class="search">
+    
+    <button (click)="searchContacts()" mat-fab extended>
+      <mat-icon>search</mat-icon>
+      Szukaj
+    </button>
+  </div>
 
+</form>
 <table mat-table [dataSource]="dataSource">
   
   
@@ -51,28 +65,6 @@
   <button mat-fab matTooltip="dodaj" (click)="openAddModComponent()">
     <mat-icon>add</mat-icon>
   </button>
-  
-  <form  [formGroup]="searchForm">
-    <mat-form-field >
-      
-      <mat-label>Wyszukaj</mat-label>
-      <input formControlName="surname" matInput placeholder="Nazwisko"  >
-    </mat-form-field>
-  
-  
-    <div class="search">
-      
-  
-      <button (click)="searchContacts(surname)" mat-fab extended>
-        <mat-icon>search</mat-icon>
-        Szukaj
-      </button>
-    </div>
-
-    
-  </form>
-  
-  
   
   
   
