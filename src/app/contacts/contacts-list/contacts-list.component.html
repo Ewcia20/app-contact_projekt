@@ -15,6 +15,13 @@
       Szukaj
     </button>
   </div>
+  <div class="clear">
+    
+    <button (click)="clearSearch()" mat-fab extended>
+      <mat-icon>search_off</mat-icon>
+      Wyczyść
+    </button>
+  </div> 
 
 </form>
 <table mat-table [dataSource]="dataSource">

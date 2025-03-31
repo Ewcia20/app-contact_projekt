@@ -69,6 +69,12 @@ buildReactiveFormSearch() {
   });
 
   }
+  clearSearch() {
+
+    alert();
+    }
+  
+  
 
   openAddModComponent(idContact?: number) {
 
