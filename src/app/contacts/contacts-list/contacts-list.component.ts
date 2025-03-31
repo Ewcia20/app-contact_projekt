@@ -62,7 +62,7 @@ buildReactiveFormSearch() {
     
     const surname = data.surname;
     
-    this.contactsService.searchContactsService(surname).subscribe(dataFromSrv => {
+    this.contactsService.searchContactsService(surname, this.idUser).subscribe(dataFromSrv => {
       // console.log(dataFromSrv);
       this.dataSource = dataFromSrv;  
     
