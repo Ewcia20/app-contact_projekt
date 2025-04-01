@@ -71,7 +71,7 @@ buildReactiveFormSearch() {
   }
   clearSearch() {
 
-    alert();
+    this.getContactsComponent();
     }
   
   
