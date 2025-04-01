@@ -61,6 +61,8 @@ buildReactiveFormSearch() {
     const data = this.searchForm.value;
     
     const surname = data.surname;
+
+    this.searchForm.reset();
     
     this.contactsService.searchContactsService(surname, this.idUser).subscribe(dataFromSrv => {
       // console.log(dataFromSrv);
@@ -71,11 +73,14 @@ buildReactiveFormSearch() {
   }
   clearSearch() {
 
+    console.log(this.searchForm.value);
+
+    this.searchForm.reset();
+
+
     this.getContactsComponent();
     }
   
-  
-
   openAddModComponent(idContact?: number) {
 
     const dialogConfig = new MatDialogConfig;
