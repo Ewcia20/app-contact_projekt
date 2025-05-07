@@ -7,7 +7,7 @@
 
     <mat-form-field>
       <mat-label>Wybierz opcję wyszukiwania</mat-label>
-      <mat-select>
+      <mat-select formControlName="searchData">
         @for (option of searchOptions; track option) {
           <mat-option [value]="option.value">{{option.viewValue}}</mat-option>
         }
@@ -16,7 +16,7 @@
     
     <mat-form-field >  
       <mat-label>Wyszukaj</mat-label>
-      <input formControlName="surname" matInput placeholder="szukaj">
+      <input formControlName="searchText" matInput placeholder="szukaj">
     </mat-form-field>
     
     <button (click)="searchContacts()" mat-fab extended>

@@ -62,7 +62,8 @@ export class ContactsListComponent {
 buildReactiveFormSearch() {
 
     this.searchForm = this.fb.group({
-      surname: '',
+      searchData: '',
+      searchText: '',
     });
 
   }
@@ -72,13 +73,11 @@ buildReactiveFormSearch() {
     this.hideBack = false;
     
     const data = this.searchForm.value;
-    
-    const surname = data.surname;
+
 
     this.searchForm.reset();
     
-    this.contactsService.searchContactsService(surname, this.idUser).subscribe(dataFromSrv => {
-      // console.log(dataFromSrv);
+    this.contactsService.searchContactsService(data, this.idUser).subscribe(dataFromSrv => {
       this.dataSource = dataFromSrv;  
     
   });
@@ -87,8 +86,6 @@ buildReactiveFormSearch() {
   clearSearch() {
 
     this.hideBack = true;
-
-    console.log(this.searchForm.value);
 
     this.searchForm.reset();
 
