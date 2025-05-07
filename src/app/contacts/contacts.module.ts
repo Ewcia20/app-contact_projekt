@@ -12,6 +12,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { ContactAddModComponent } from './contact-add-mod/contact-add-mod.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+
+
+
+
 
 
 
@@ -32,6 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatSelectModule,
+    
     
 
   

@@ -2,29 +2,37 @@
   <span content>Lista wszystkich kontaktów</span>
 </app-header>
 <form  [formGroup]="searchForm">
-  <mat-form-field >
-    
-    <mat-label>Wyszukaj</mat-label>
-    <input formControlName="surname" matInput placeholder="Nazwisko"  >
-  </mat-form-field>
-
+ 
   <div class="search">
+
+    <mat-form-field>
+      <mat-label>Wybierz opcję wyszukiwania</mat-label>
+      <mat-select>
+        @for (option of searchOptions; track option) {
+          <mat-option [value]="option.value">{{option.viewValue}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field >  
+      <mat-label>Wyszukaj</mat-label>
+      <input formControlName="surname" matInput placeholder="szukaj">
+    </mat-form-field>
     
     <button (click)="searchContacts()" mat-fab extended>
       <mat-icon>search</mat-icon>
       Szukaj
     </button>
-  </div>
-  <div class="clear">
     
-    <button (click)="clearSearch()" mat-fab extended>
+    <button (click)="clearSearch()" [hidden]="hideBack" mat-fab extended>
       <mat-icon>arrow_back</mat-icon>
       Wróć
     </button>
-  </div> 
-
+  </div>
 </form>
 <table mat-table [dataSource]="dataSource">
+  
+  
   
   
     <!-- Lp Column -->

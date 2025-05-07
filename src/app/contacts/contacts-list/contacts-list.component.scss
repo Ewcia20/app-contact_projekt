@@ -17,23 +17,17 @@ td button {
 
 mat-form-field {
 
-    position: relative;
-    left: 100px;
-    bottom: 5px;
+    margin-right: 20px;
 
 }
 
 .search {
-    position: relative;
-    left: 330px;
-    bottom: 80px;
+    display: flex;
+    padding: 30px;
        
 }
 
-.clear {
-    position: relative;
-    left: 460px;
-    bottom: 135px;
-       
+button {
+    margin-right: 20px;
 }
 

@@ -7,6 +7,8 @@ import { ContactAddModComponent } from '../contact-add-mod/contact-add-mod.compo
 import { JwtService } from '../../auth/jwt.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-contacts-list',
   templateUrl: './contacts-list.component.html',
@@ -22,6 +24,15 @@ export class ContactsListComponent {
   private idUser: any;
   searchForm: any;
   surname: any;
+
+  protected hideBack = true;
+
+
+    searchOptions: any = [
+      {value: 'surname', viewValue: 'Nazwisko'},
+      {value: 'firstname', viewValue: 'Imię'},
+      {value: 'city', viewValue: 'Miasto'},
+    ];
 
   
   constructor(
@@ -57,6 +68,8 @@ buildReactiveFormSearch() {
   }
 
   searchContacts(){
+
+    this.hideBack = false;
     
     const data = this.searchForm.value;
     
@@ -72,6 +85,8 @@ buildReactiveFormSearch() {
 
   }
   clearSearch() {
+
+    this.hideBack = true;
 
     console.log(this.searchForm.value);
 
