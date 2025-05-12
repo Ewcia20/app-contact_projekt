@@ -36,7 +36,7 @@ export class ContactsListComponent {
 
   
   constructor(
-    private contactsService: ContactsService, 
+    private contactsService: ContactsService,
     private dialog: MatDialog,
     private jwtService: JwtService,
     private fb: FormBuilder,
