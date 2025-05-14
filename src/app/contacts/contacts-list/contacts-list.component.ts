@@ -34,9 +34,11 @@ export class ContactsListComponent {
       {value: 'city', viewValue: 'Miasto'},
     ];
 
+    errorBack: boolean = false;
+
   
   constructor(
-    private contactsService: ContactsService,
+    private contactsService: ContactsService, 
     private dialog: MatDialog,
     private jwtService: JwtService,
     private fb: FormBuilder,
@@ -73,12 +75,18 @@ buildReactiveFormSearch() {
     this.hideBack = false;
     
     const data = this.searchForm.value;
-
+    
 
     this.searchForm.reset();
     
     this.contactsService.searchContactsService(data, this.idUser).subscribe(dataFromSrv => {
-      this.dataSource = dataFromSrv;  
+      this.dataSource = dataFromSrv; 
+      
+      if(this.dataSource.length === 0) {
+        this.errorBack = true;
+      } else {
+        this.errorBack = false;
+      } 
     
   });
 

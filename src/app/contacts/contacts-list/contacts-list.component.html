@@ -1,7 +1,11 @@
 <app-header>
   <span content>Lista wszystkich kontaktów</span>
 </app-header>
+
+
 <form  [formGroup]="searchForm">
+
+  <p  *ngIf="errorBack" class="alert">Błędne wyszukiwanie/Wybierz prawidłową frazę wyszukiwania</p>
  
   <div class="search">
 
