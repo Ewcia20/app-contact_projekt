@@ -97,6 +97,11 @@ buildReactiveFormSearch() {
 
     this.searchForm.reset();
 
+    this.errorBack = false;
+
+    this.hideBack.valueOf()
+    
+
 
     this.getContactsComponent();
     }
