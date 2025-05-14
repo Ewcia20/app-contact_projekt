@@ -99,10 +99,8 @@ buildReactiveFormSearch() {
 
     this.errorBack = false;
 
-    this.hideBack.valueOf()
+    this.hideBack.valueOf();
     
-
-
     this.getContactsComponent();
     }
   
