@@ -23,7 +23,7 @@
       <input formControlName="searchText" matInput placeholder="szukaj">
     </mat-form-field>
     
-    <button (click)="searchContacts()" mat-fab extended>
+    <button [disabled]="searchForm.invalid" (click)="searchContacts()" mat-fab extended>
       <mat-icon>search</mat-icon>
       Szukaj
     </button>

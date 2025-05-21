@@ -63,9 +63,11 @@ export class ContactsListComponent {
  
 buildReactiveFormSearch() {
 
+  const searchPattern: string | RegExp = '^[A-ż]{2,50}$'; 
+
     this.searchForm = this.fb.group({
-      searchData: '',
-      searchText: '',
+      searchData: ['', [Validators.required, Validators.pattern(searchPattern)]],
+      searchText: ['', [Validators.required, Validators.pattern(searchPattern)]],
     });
 
   }
