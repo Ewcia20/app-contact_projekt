@@ -10,7 +10,7 @@
   <div class="search">
 
     <mat-form-field>
-      <mat-label>Wybierz opcję wyszukiwania</mat-label>
+      <mat-label>Opcje wyszukiwania</mat-label>
       <mat-select formControlName="searchData">
         @for (option of searchOptions; track option) {
           <mat-option [value]="option.value">{{option.viewValue}}</mat-option>
@@ -27,7 +27,7 @@
       <mat-icon>search</mat-icon>
       Szukaj
     </button>
-    
+    <!-- [disabled]="searchForm.invalid" -->
     <button (click)="clearSearch()" [hidden]="hideBack" mat-fab extended>
       <mat-icon>arrow_back</mat-icon>
       Wróć

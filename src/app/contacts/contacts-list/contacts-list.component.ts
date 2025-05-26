@@ -66,10 +66,10 @@ buildReactiveFormSearch() {
   const searchPattern: string | RegExp = '^[A-ż]{2,50}$'; 
 
     this.searchForm = this.fb.group({
-      searchData: ['', [Validators.required, Validators.pattern(searchPattern)]],
+      searchData: ['',[Validators.required, Validators.pattern(searchPattern)]],
       searchText: ['', [Validators.required, Validators.pattern(searchPattern)]],
     });
-
+    // [Validators.required, Validators.pattern(searchPattern)]
   }
 
   searchContacts(){
@@ -96,14 +96,19 @@ buildReactiveFormSearch() {
   clearSearch() {
 
     this.hideBack = true;
+   this.searchForm.reset();
+   ['searchText', 'searchData'].forEach(field => {
+   const control = this.searchForm.get(field);
+   control?.clearValidators();
+   control?.updateValueAndValidity();
+});
 
-    this.searchForm.reset();
-
-    this.errorBack = false;
-
-    this.hideBack.valueOf();
-    
-    this.getContactsComponent();
+   
+   this.errorBack = false;
+   this.hideBack.valueOf();
+   this.getContactsComponent();
+  
+  
     }
   
   openAddModComponent(idContact?: number) {
