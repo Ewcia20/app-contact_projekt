@@ -18,8 +18,9 @@ import {
   styleUrl: './contacts-list.component.scss',
 })
 export class ContactsListComponent {
-
-  @Input() searchTest: string = 'Miłego dnia';
+  @Input() searchParams!: { searchText: string; searchData: string };
+  results: any[] = [];
+  showMessage = false;
 
   displayedColumns: string[] = ['lp', 'surname', 'firstname', 'city', 'action'];
 
@@ -37,7 +38,18 @@ export class ContactsListComponent {
     this.idUser = this.jwtService.id;
     // console.log(this.idUser);
     this.getContactsComponent();
-    console.log(this.searchTest);
+  }
+
+  search(params: { searchText: string; searchData: string }) {
+    if (!params.searchText && !params.searchData) {
+      this.getContactsComponent();
+      return;
+    }
+    this.contactsService
+      .searchContactsService(params, this.idUser)
+      .subscribe((dataFromSrv) => {
+        this.dataSource = dataFromSrv;
+      });
   }
 
   getContactsComponent(): void {

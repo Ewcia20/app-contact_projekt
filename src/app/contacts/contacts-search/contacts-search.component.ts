@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contacts-search',
@@ -8,17 +8,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ContactsSearchComponent {
 
-  @Output() searchTest: (new () => EventEmitter<string>) | undefined;
-  constructor(private fb: FormBuilder) {}
+  @Output() searchTriggered = new EventEmitter<{ searchText: string, searchData: string }>();
 
-  ngOnInit() {
-    this.buildReactiveFormSearch();
-  }
+  searchForm: FormGroup;
+  errorBack = false;
+  hideBack = true;
 
-  searchForm: any;
-  surname: any;
-
-  protected hideBack = true;
+  // protected hideBack = true;
 
   searchOptions: any = [
     { value: 'surname', viewValue: 'Nazwisko' },
@@ -26,7 +22,12 @@ export class ContactsSearchComponent {
     { value: 'city', viewValue: 'Miasto' },
   ];
 
-  errorBack: boolean = false;
+  constructor(private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      searchText: ['', Validators.required],
+      searchData: ['', Validators.required]
+    });
+  }
   buildReactiveFormSearch() {
     const searchPattern: string | RegExp = '^[A-ż]{2,50}$';
 
@@ -40,27 +41,47 @@ export class ContactsSearchComponent {
         [Validators.required, Validators.pattern(searchPattern)],
       ],
     });
-    // [Validators.required, Validators.pattern(searchPattern)]
+  
   }
 
-  searchContacts() {
-    this.hideBack = false;
+//   searchContacts() {
+//     this.hideBack = false;
 
-    const data = this.searchForm.value;
+//     const data = this.searchForm.value;
 
-    this.searchForm.reset();
+//     this.searchForm.reset();
+//   }
+//   clearSearch() {
+//     this.hideBack = true;
+//     this.searchForm.reset();
+//     ['searchText', 'searchData'].forEach((field) => {
+//       const control = this.searchForm.get(field);
+//       control?.clearValidators();
+//       control?.updateValueAndValidity();
+//     });
+
+//     this.errorBack = false;
+//     this.hideBack.valueOf();
+//     //  this.getContactsComponent();
+//   }
+// }
+
+ searchContacts() {
+    if (this.searchForm.valid) {
+      this.searchTriggered.emit(this.searchForm.value);
+      this.hideBack = false;
+    }
   }
+
   clearSearch() {
-    this.hideBack = true;
     this.searchForm.reset();
-    ['searchText', 'searchData'].forEach((field) => {
-      const control = this.searchForm.get(field);
-      control?.clearValidators();
-      control?.updateValueAndValidity();
-    });
-
-    this.errorBack = false;
-    this.hideBack.valueOf();
-    //  this.getContactsComponent();
-  }
-}
+    this.hideBack = true;
+    this.searchTriggered.emit({ searchText: '', searchData: '' });
+  //   const control = this.searchForm;
+  //  control?.clearValidators();
+  //     control?.updateValueAndValidity();
+      
+    }
+  
+  };
+  
