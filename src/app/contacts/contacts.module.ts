@@ -13,6 +13,7 @@ import { ContactAddModComponent } from './contact-add-mod/contact-add-mod.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { ContactsSearchComponent } from './contacts-search/contacts-search.component';
 
 
 
@@ -24,7 +25,8 @@ import {MatSelectModule} from '@angular/material/select';
   declarations: [
     ContactsListComponent,
     ContactDetailsComponent,
-    ContactAddModComponent
+    ContactAddModComponent,
+    ContactsSearchComponent
   ],
   imports: [
     CommonModule,

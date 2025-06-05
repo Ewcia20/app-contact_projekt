@@ -2,38 +2,10 @@
   <span content>Lista wszystkich kontaktów</span>
 </app-header>
 
+<app-contacts-search></app-contacts-search>
 
-<form  [formGroup]="searchForm">
 
-  <p  *ngIf="errorBack" class="alert">Brak wyniku wyszukiwania/Wybierz prawidłową frazę wyszukiwania</p>
- 
-  <div class="search">
 
-    <mat-form-field>
-      <mat-label>Opcje wyszukiwania</mat-label>
-      <mat-select formControlName="searchData">
-        @for (option of searchOptions; track option) {
-          <mat-option [value]="option.value">{{option.viewValue}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field >  
-      <mat-label>Wyszukaj</mat-label>
-      <input formControlName="searchText" matInput placeholder="szukaj">
-    </mat-form-field>
-    
-    <button [disabled]="searchForm.invalid" (click)="searchContacts()" mat-fab extended>
-      <mat-icon>search</mat-icon>
-      Szukaj
-    </button>
-    <!-- [disabled]="searchForm.invalid" -->
-    <button (click)="clearSearch()" [hidden]="hideBack" mat-fab extended>
-      <mat-icon>arrow_back</mat-icon>
-      Wróć
-    </button>
-  </div>
-</form>
 <table mat-table [dataSource]="dataSource">
   
   
