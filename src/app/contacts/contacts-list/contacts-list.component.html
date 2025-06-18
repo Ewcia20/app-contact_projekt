@@ -1,9 +1,11 @@
 <app-header>
   <span content>Lista wszystkich kontaktów</span>
 </app-header>
-<app-contacts-search (searchTriggered)="search($event)"></app-contacts-search>
-
-
+<app-contacts-search
+  (searchTriggered)="search($event)"
+  [errorBack]="searchError"
+  (clearError)="searchError = false">
+</app-contacts-search>
 
 <table mat-table [dataSource]="dataSource">
 

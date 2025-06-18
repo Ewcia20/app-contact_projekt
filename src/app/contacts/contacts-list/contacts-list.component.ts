@@ -5,12 +5,6 @@ import { ContactsService } from '../contacts.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ContactAddModComponent } from '../contact-add-mod/contact-add-mod.component';
 import { JwtService } from '../../auth/jwt.service';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 
 @Component({
   selector: 'app-contacts-list',
@@ -18,7 +12,7 @@ import {
   styleUrl: './contacts-list.component.scss',
 })
 export class ContactsListComponent {
-  @Input() searchParams!: { searchText: string; searchData: string };
+  @Input() searchParams?: { searchText: string; searchData: string };
   results: any[] = [];
   showMessage = false;
 
@@ -27,6 +21,7 @@ export class ContactsListComponent {
   dataSource: ContactModel[] = [];
 
   private idUser: any;
+  searchError = false;
 
   constructor(
     private contactsService: ContactsService,
@@ -49,6 +44,7 @@ export class ContactsListComponent {
       .searchContactsService(params, this.idUser)
       .subscribe((dataFromSrv) => {
         this.dataSource = dataFromSrv;
+        this.searchError = this.dataSource.length === 0;
       });
   }
 

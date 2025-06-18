@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,13 +7,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './contacts-search.component.scss',
 })
 export class ContactsSearchComponent {
+  @Output() clearError = new EventEmitter<void>();
+   @Input() errorBack = false;
   @Output() searchTriggered = new EventEmitter<{
     searchText: string;
     searchData: string;
   }>();
 
   searchForm: FormGroup;
-  errorBack = false;
+  // errorBack = false;
   hideBack = true;
 
   // protected hideBack = true;
@@ -53,8 +55,15 @@ export class ContactsSearchComponent {
   }
 
   clearSearch() {
-    this.searchForm.reset();
     this.hideBack = true;
     this.searchTriggered.emit({ searchText: '', searchData: '' });
-  }
+    this.clearError.emit();
+    this.searchForm.reset();
+    ['searchText', 'searchData'].forEach((field) => {
+      const control = this.searchForm.get(field);
+      control?.clearValidators();
+      control?.updateValueAndValidity();
+    });
+      
+    }
 }
