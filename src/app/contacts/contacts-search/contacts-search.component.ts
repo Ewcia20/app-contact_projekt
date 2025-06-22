@@ -47,6 +47,14 @@ export class ContactsSearchComponent {
     });
   }
 
+  
+onKeyUp() {
+  if (this.searchForm.get('searchText')?.value && this.searchForm.get('searchData')?.value) {
+    this.searchTriggered.emit(this.searchForm.value);
+    this.hideBack = false;
+  }
+}
+
   searchContacts() {
     if (this.searchForm.valid) {
       this.searchTriggered.emit(this.searchForm.value);

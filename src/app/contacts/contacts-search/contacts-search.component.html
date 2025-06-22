@@ -16,7 +16,7 @@
     
     <mat-form-field >  
       <mat-label>Wyszukaj</mat-label>
-      <input formControlName="searchText" matInput placeholder="szukaj">
+      <input formControlName="searchText" matInput placeholder="szukaj" (keyup)="onKeyUp()">
     </mat-form-field>
     
     <button [disabled]="searchForm.invalid" (click)="searchContacts()" mat-fab extended>
