@@ -7,12 +7,12 @@
   (clearError)="searchError = false">
 </app-contacts-search>
 
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="paginatedDataSource">
 
   <!-- Lp Column -->
   <ng-container matColumnDef="lp">
     <th mat-header-cell *matHeaderCellDef> Lp </th>
-    <td mat-cell *matCellDef="let element let i = index"> {{ i + 1 }} </td>
+    <td mat-cell *matCellDef="let element let i = index">  {{ currentPage * pageSize + i + 1 }} </td>
   </ng-container>
 
   <!-- surname Column -->
@@ -47,9 +47,25 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<div class="button">
+  <button mat-raised-button (click)="prevPage()" [disabled]="currentPage === 0">
+    Poprzednia strona
+  </button>
+  <span class="side">
+    Strona {{ currentPage + 1 }} z {{ totalPages }}
+  </span>
+  <button mat-raised-button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
+    Następna strona
+  </button>
+</div>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
 
 <button mat-fab matTooltip="dodaj" (click)="openAddModComponent()">
   <mat-icon>add</mat-icon>

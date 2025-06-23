@@ -16,6 +16,31 @@ export class ContactsListComponent {
   results: any[] = [];
   showMessage = false;
 
+  pageSize = 10;
+  currentPage = 0;
+
+  get paginatedDataSource(): ContactModel[] {
+    const start = this.currentPage * this.pageSize;
+    return this.dataSource.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.dataSource.length / this.pageSize);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
+  }
+
+
   displayedColumns: string[] = ['lp', 'surname', 'firstname', 'city', 'action'];
 
   dataSource: ContactModel[] = [];
@@ -45,6 +70,7 @@ export class ContactsListComponent {
       .subscribe((dataFromSrv) => {
         this.dataSource = dataFromSrv;
         this.searchError = this.dataSource.length === 0;
+        this.currentPage = 0; 
       });
   }
 
@@ -54,6 +80,7 @@ export class ContactsListComponent {
       .subscribe((dataFromSrv) => {
         //console.log(dataFromSrv)
         this.dataSource = dataFromSrv;
+        this.currentPage = 0;
       });
   }
 
