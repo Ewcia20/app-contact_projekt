@@ -56,7 +56,6 @@ export class ContactsListComponent {
 
   ngOnInit() {
     this.idUser = this.jwtService.id;
-    // console.log(this.idUser);
     this.getContactsComponent();
   }
 
@@ -78,7 +77,6 @@ export class ContactsListComponent {
     this.contactsService
       .getContatsService(this.idUser)
       .subscribe((dataFromSrv) => {
-        //console.log(dataFromSrv)
         this.dataSource = dataFromSrv;
         this.currentPage = 0;
       });
@@ -97,17 +95,20 @@ export class ContactsListComponent {
     dialogConfig.disableClose = true;
 
     const dialogRef = this.dialog.open(ContactAddModComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((dataClose) => {
-      if (dataClose.reload === 1) {
+dialogRef.afterClosed().subscribe((dataClose) => {
+    if (dataClose && dataClose.reload === 1) {
+      if (dataClose.newContact) {
+        this.dataSource.unshift(dataClose.newContact);
+        this.currentPage = 0;
+      } else {
         this.getContactsComponent();
       }
-    });
-  }
-
+    }
+  });
+}
+   
   removeContactComponent(id: number): void {
     const queryDel = confirm('Czy napewno usunąć ten kontakt?');
-
     console.log(queryDel);
 
     if (queryDel) {
@@ -122,7 +123,6 @@ export class ContactsListComponent {
       .searchContactsService(data, this.idUser)
       .subscribe((dataFromSrv) => {
         this.dataSource = dataFromSrv;
-
         // if(this.dataSource.length === 0) {
         //   this.errorBack = true;
         // } else {

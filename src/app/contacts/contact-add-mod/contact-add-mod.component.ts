@@ -62,12 +62,11 @@ export class ContactAddModComponent {
 
   addNewContact(): void {
 
-
      const data = this.addModForm.value;
      data.id_user = this.idUser;
      
     this.contactService.addNewContactService(data).subscribe(dataFromSrv => {
-      this.dialogRef.close({reload: 1});
+      this.dialogRef.close({reload: 1,newContact: dataFromSrv });
 
     });
    
@@ -90,7 +89,6 @@ export class ContactAddModComponent {
     });
   }
   
-
   modContact() {
     this.contactService.modContactService(this.contactId, this.addModForm.value).subscribe(dataFromSrv => {
       this.dialogRef.close({reload: 1});
