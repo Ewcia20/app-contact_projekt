@@ -17,11 +17,14 @@ td button {
 
 .button {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
-
-.side {
-   margin: 0 30px; 
-}
+ .side {
+   margin: 0 10px; 
+ }
 
 
 
