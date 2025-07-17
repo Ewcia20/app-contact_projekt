@@ -67,7 +67,7 @@ export class ContactsListComponent {
     this.contactsService
       .searchContactsService(params, this.idUser)
       .subscribe((dataFromSrv) => {
-        this.dataSource = dataFromSrv;
+       this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
         this.searchError = this.dataSource.length === 0;
         this.currentPage = 0; 
       });
@@ -77,7 +77,7 @@ export class ContactsListComponent {
     this.contactsService
       .getContatsService(this.idUser)
       .subscribe((dataFromSrv) => {
-        this.dataSource = dataFromSrv;
+         this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
         this.currentPage = 0;
       });
   }
