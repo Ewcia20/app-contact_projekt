@@ -19,10 +19,10 @@ export class ContactsListComponent {
   pageSize = 10;
   currentPage = 0;
   count = 0;
+  dataSource: ContactModel[] = [];
   
   displayedColumns: string[] = ['lp', 'surname', 'firstname', 'city', 'action'];
   
-  dataSource: ContactModel[] = [];
   
   private idUser: any;
   searchError = false;
@@ -53,12 +53,13 @@ export class ContactsListComponent {
     });
   }
   
-  getContactsComponent(): void {
-    this.contactsService
-    .getContatsService(this.idUser)
-    .subscribe((dataFromSrv) => {
-      this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
-      this.currentPage = 0;
+ getContactsComponent(): void {
+  const offset = this.currentPage * this.pageSize;
+  this.contactsService
+    .getCountService(this.idUser, offset, this.pageSize)
+    .subscribe((response) => {
+      this.dataSource = response.contacts;
+      this.count = response.count;
     });
   }
   getCountComponent(): void {
@@ -119,10 +120,10 @@ export class ContactsListComponent {
         });
       }
       
-        get paginatedDataSource(): ContactModel[] {
-          const start = this.currentPage * this.pageSize;
-          return this.dataSource.slice(start, start + this.pageSize);
-        }
+        // get paginatedDataSource(): ContactModel[] {
+        //   const start = this.currentPage * this.pageSize;
+        //   return this.dataSource.slice(start, start + this.pageSize);
+        // }
       
         get totalPages(): number {
           return Math.ceil(this.count / this.pageSize);
@@ -131,12 +132,14 @@ export class ContactsListComponent {
         nextPage() {
           if (this.currentPage < this.totalPages - 1) {
             this.currentPage++;
+            this.getContactsComponent();
           }
         }
       
         prevPage() {
           if (this.currentPage > 0) {
             this.currentPage--;
+            this.getContactsComponent();
           }
         }
   

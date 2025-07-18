@@ -11,9 +11,9 @@ export class ContactsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCountService(idUser: number): Observable<any> {
-    return this.httpClient.get(`${this.baseApiUrl}/contacts/count/${idUser}`);
-  }
+ getCountService(idUser: number, offset: number = 0, howmany: number = 10): Observable<any> {
+  return this.httpClient.get(`${this.baseApiUrl}/contacts/count/${idUser}/${offset}/${howmany}`);
+}
   getContatsService(idUser: number): Observable<any> {
     return this.httpClient.get(`${this.baseApiUrl}/contacts/${idUser}`);
   }
