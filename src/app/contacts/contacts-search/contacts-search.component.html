@@ -19,10 +19,10 @@
       <input formControlName="searchText" matInput placeholder="szukaj" (keyup)="onKeyUp()">
     </mat-form-field>
     
-    <button [disabled]="searchForm.invalid" (click)="searchContacts()" mat-fab extended>
+    <!-- <button [disabled]="searchForm.invalid" (click)="searchContacts()" mat-fab extended>
       <mat-icon>search</mat-icon>
       Szukaj
-    </button>
+    </button> -->
     <!-- [disabled]="searchForm.invalid" -->
     <button (click)="clearSearch()" [hidden]="hideBack" mat-fab extended>
       <mat-icon>arrow_back</mat-icon>

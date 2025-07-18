@@ -18,116 +18,126 @@ export class ContactsListComponent {
 
   pageSize = 10;
   currentPage = 0;
-
-  get paginatedDataSource(): ContactModel[] {
-    const start = this.currentPage * this.pageSize;
-    return this.dataSource.slice(start, start + this.pageSize);
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.dataSource.length / this.pageSize);
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-    }
-  }
-
-
+  count = 0;
+  
   displayedColumns: string[] = ['lp', 'surname', 'firstname', 'city', 'action'];
-
+  
   dataSource: ContactModel[] = [];
-
+  
   private idUser: any;
   searchError = false;
-
+  
   constructor(
     private contactsService: ContactsService,
     private dialog: MatDialog,
     private jwtService: JwtService
   ) {}
-
+  
   ngOnInit() {
     this.idUser = this.jwtService.id;
+    this.getCountComponent();
     this.getContactsComponent();
   }
-
+  
   search(params: { searchText: string; searchData: string }) {
     if (!params.searchText && !params.searchData) {
       this.getContactsComponent();
       return;
     }
     this.contactsService
-      .searchContactsService(params, this.idUser)
-      .subscribe((dataFromSrv) => {
-       this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
-        this.searchError = this.dataSource.length === 0;
-        this.currentPage = 0; 
-      });
+    .searchContactsService(params, this.idUser)
+    .subscribe((dataFromSrv) => {
+      this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
+      this.searchError = this.dataSource.length === 0;
+      this.currentPage = 0; 
+    });
   }
-
+  
   getContactsComponent(): void {
     this.contactsService
-      .getContatsService(this.idUser)
-      .subscribe((dataFromSrv) => {
-         this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
-        this.currentPage = 0;
-      });
+    .getContatsService(this.idUser)
+    .subscribe((dataFromSrv) => {
+      this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
+      this.currentPage = 0;
+    });
   }
-
+  getCountComponent(): void {
+    this.contactsService
+    .getCountService(this.idUser)
+    .subscribe(CountContacts => {
+      
+      this.count = CountContacts.count;
+    });
+  }
+  
   openAddModComponent(idContact?: number) {
     const dialogConfig = new MatDialogConfig();
-
+    
     dialogConfig.width = '90%';
     dialogConfig.height = '90%';
-
+    
     dialogConfig.data = {
       idContact,
     };
-
+    
     dialogConfig.disableClose = true;
-
+    
     const dialogRef = this.dialog.open(ContactAddModComponent, dialogConfig);
-dialogRef.afterClosed().subscribe((dataClose) => {
-    if (dataClose && dataClose.reload === 1) {
-      if (dataClose.newContact) {
-        this.dataSource.unshift(dataClose.newContact);
-        this.currentPage = 0;
-      } else {
-        this.getContactsComponent();
+    dialogRef.afterClosed().subscribe((dataClose) => {
+      if (dataClose && dataClose.reload === 1) {
+        if (dataClose.newContact) {
+          this.dataSource.unshift(dataClose.newContact);
+          this.currentPage = 0;
+        } else {
+          this.getContactsComponent();
+        }
       }
-    }
-  });
-}
-   
+    });
+  }
+  
   removeContactComponent(id: number): void {
     const queryDel = confirm('Czy napewno usunąć ten kontakt?');
     console.log(queryDel);
-
+    
     if (queryDel) {
       this.contactsService.removeContactService(id).subscribe(() => {
         this.getContactsComponent();
       });
     }
   }
-
+  
   searchContacts(data: any) {
     this.contactsService
-      .searchContactsService(data, this.idUser)
-      .subscribe((dataFromSrv) => {
-        this.dataSource = dataFromSrv;
-        // if(this.dataSource.length === 0) {
+    .searchContactsService(data, this.idUser)
+    .subscribe((dataFromSrv) => {
+      this.dataSource = dataFromSrv;
+      // if(this.dataSource.length === 0) {
         //   this.errorBack = true;
         // } else {
-        //   this.errorBack = false;
-        // }
-      });
-  }
+          //   this.errorBack = false;
+          // }
+        });
+      }
+      
+        get paginatedDataSource(): ContactModel[] {
+          const start = this.currentPage * this.pageSize;
+          return this.dataSource.slice(start, start + this.pageSize);
+        }
+      
+        get totalPages(): number {
+          return Math.ceil(this.count / this.pageSize);
+        }
+      
+        nextPage() {
+          if (this.currentPage < this.totalPages - 1) {
+            this.currentPage++;
+          }
+        }
+      
+        prevPage() {
+          if (this.currentPage > 0) {
+            this.currentPage--;
+          }
+        }
+  
 }
