@@ -35,23 +35,20 @@ export class ContactsListComponent {
   
   ngOnInit() {
     this.idUser = this.jwtService.id;
-    this.getCountComponent();
+    // this.getCountComponent();
     this.getContactsComponent();
   }
   
   search(params: { searchText: string; searchData: string }) {
-    if (!params.searchText && !params.searchData) {
-      this.getContactsComponent();
-      return;
-    }
-    this.contactsService
+  this.contactsService
     .searchContactsService(params, this.idUser)
     .subscribe((dataFromSrv) => {
-      this.dataSource = dataFromSrv.sort((a: { id: number; }, b: { id: number; }) => b.id - a.id);
+      this.dataSource = dataFromSrv;
       this.searchError = this.dataSource.length === 0;
-      this.currentPage = 0; 
+      this.currentPage = 0;
+      this.count = this.dataSource.length;
     });
-  }
+}
   
  getContactsComponent(): void {
   const offset = this.currentPage * this.pageSize;
@@ -62,14 +59,14 @@ export class ContactsListComponent {
       this.count = response.count;
     });
   }
-  getCountComponent(): void {
-    this.contactsService
-    .getCountService(this.idUser)
-    .subscribe(CountContacts => {
+  // getCountComponent(): void {
+  //   this.contactsService
+  //   .getCountService(this.idUser)
+  //   .subscribe(CountContacts => {
       
-      this.count = CountContacts.count;
-    });
-  }
+  //     this.count = CountContacts.count;
+  //   });
+  // }
   
   openAddModComponent(idContact?: number) {
     const dialogConfig = new MatDialogConfig();
