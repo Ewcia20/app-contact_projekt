@@ -39,7 +39,15 @@ export class ContactsListComponent {
     this.getContactsComponent();
   }
   
+
   search(params: { searchText: string; searchData: string }) {
+  if (!params.searchText && !params.searchData) {
+    this.currentPage = 0;
+    this.getContactsComponent();
+    this.searchError = false;
+    return;
+  }
+ 
   this.contactsService
     .searchContactsService(params, this.idUser)
     .subscribe((dataFromSrv) => {
@@ -49,6 +57,16 @@ export class ContactsListComponent {
       this.count = this.dataSource.length;
     });
 }
+//   search(params: { searchText: string; searchData: string }) {
+//   this.contactsService
+//     .searchContactsService(params, this.idUser)
+//     .subscribe((dataFromSrv) => {
+//       this.dataSource = dataFromSrv;
+//       this.searchError = this.dataSource.length === 0;
+//       this.currentPage = 0;
+//       this.count = this.dataSource.length;
+//     });
+// }
   
  getContactsComponent(): void {
   const offset = this.currentPage * this.pageSize;
