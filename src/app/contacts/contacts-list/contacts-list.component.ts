@@ -85,23 +85,31 @@ export class ContactsListComponent {
   //     this.count = CountContacts.count;
   //   });
   // }
-
-openAddModComponent(idContact?: number) {
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.width = '90%';
-  dialogConfig.height = '90%';
-  dialogConfig.data = { idContact };
-  dialogConfig.disableClose = true;
-
-  const dialogRef = this.dialog.open(ContactAddModComponent, dialogConfig);
-  dialogRef.afterClosed().subscribe((dataClose) => {
-    if (dataClose && dataClose.reload === 1) {
-      this.currentPage = 0;
-      this.getContactsComponent();
-    }
-  });
-}
-
+  
+  openAddModComponent(idContact?: number) {
+    const dialogConfig = new MatDialogConfig();
+    
+    dialogConfig.width = '90%';
+    dialogConfig.height = '90%';
+    
+    dialogConfig.data = {
+      idContact,
+    };
+    
+    dialogConfig.disableClose = true;
+    
+    const dialogRef = this.dialog.open(ContactAddModComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((dataClose) => {
+      if (dataClose && dataClose.reload === 1) {
+        if (dataClose.newContact) {
+          this.dataSource.unshift(dataClose.newContact);
+          this.currentPage = 0;
+        } else {
+          this.getContactsComponent();
+        }
+      }
+    });
+  }
   
   removeContactComponent(id: number): void {
     const queryDel = confirm('Czy napewno usunąć ten kontakt?');
